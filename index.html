@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Todo List Demo Application</title>
+	<!-- Latest compiled and minified CSS & JS -->
+	<link rel="stylesheet" media="screen" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<script src="bower_components/jquery/dist/jquery.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+	<script src="jquery.todo.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	$(function(){
+		var todo = $('.task-list').todolist();
+		$('.task-list').todolist.add({
+		  id: "123",
+		  code: "1",
+		  title: "My Uber Important Task",
+		  date: "5/2/2014",
+		  description: "I have to do a lot of steps to implement this task!"
+		});
+	});
+	</script>
+	<style>
+		body{
+			background-image: url(img/todo-bg.jpg);
+		    background-repeat: no-repeat;
+		    background-size: 100% 100%;
+		    min-height: 700px;
+		    overflow: hidden;
+		}
+		.task-list {
+		  width: 100%;
+		  float: left;
+		  margin: 0 5px;
+		  background-color: #e3e3e3;
+		  min-height: 240px;
+		  border-radius: 10px;
+		  padding-bottom: 15px;
+		}
+
+		.task-list input, .task-list textarea {
+		  width: 240px;
+		  margin: 1px 5px;
+		}
+
+		.task-list input {
+		  height: 30px;
+		}
+
+		.todo-task {
+		  border-radius: 5px;
+		  background-color: #fff;
+		  margin: 5px;
+		  padding: 5px;
+		}
+
+		.task-list input[type="button"] {
+		  width: 100px;
+		  margin: 5px;
+		}
+
+		.todo-task > .task-header {
+		  font-weight: bold;
+		}
+
+		.todo-task > .task-date {
+		  font-size: small;
+		  font-style: italic;
+		}
+
+		.todo-task > .task-description {
+		  font-size: smaller;
+		}
+
+		h3 {
+		  text-align: center;
+		}
+
+		#delete-div {
+		  background-color: #fff;
+		  border: 3px dotted #000;
+		  margin: 10px;
+		  height: 75px;
+		  line-height: 75px;
+		  text-align: center;
+		}
+		button.btn {
+		    margin: 1px 5px;
+		}
+	</style>
+</head>
+<body>
+<div class="container" style="margin-top: 3em;">
+	<div class="row">
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+			<div class="task-list" id="pending">
+				<h3>Pending</h3>
+				<div class="todo-task">
+					<div class="task-header">Sample Header</div>
+					<div class="task-date">25/06/2015</div>
+					<div class="task-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus, cumque et natus molestias magnam! Explicabo dolore expedita, accusantium beatae, iure incidunt pariatur iste, nesciunt labore recusandae amet ad optio rerum.</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+			<div class="task-list" id="inProgress">
+				<h3>In Progress</h3>
+				<div class="todo-task">
+					<div class="task-header">Sample Header</div>
+					<div class="task-date">25/06/2015</div>
+					<div class="task-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus, cumque et natus molestias magnam! Explicabo dolore expedita, accusantium beatae, iure incidunt pariatur iste, nesciunt labore recusandae amet ad optio rerum.</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+			<div class="task-list" id="completed">
+				<h3>Completed</h3>
+			</div>
+		</div>
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+			<div class="task-list">
+				<h3>Add a task</h3>
+				<form id="todo-form">
+					<input type="text" placeholder="Title">
+					<input type="text" placeholder="Due Date (dd/mm/yyyy)">
+					<textarea name="description" id="description" placeholder="Description"></textarea>
+					<button type="button" class="btn btn-success">Add Task</button>
+				</form>
+
+				<button type="button" class="btn btn-danger">Clear Data</button>
+
+				<div id="delete-div">Drag Here to Delete</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "TodoList",
+  "authors": [
+    "Muhammad Usama <m.usama.masood@gmail.com>"
+  ],
+  "description": "HTML5 based jQuery solution to automate the todo list.",
+  "main": "index.html",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "jquery",
+    "todo",
+    "todolist",
+    "bootstrape",
+    "jqueryui"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "dependencies": {
+    "jquery": "1.11.1",
+    "bootstrap": "3.3.4",
+    "jquery-ui": "jqueryui#1.11.1"
+  }
+}

@@ -1,0 +1,2 @@
+#exclude all bower component
+bower_components/*
