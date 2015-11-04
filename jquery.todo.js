@@ -1,15 +1,76 @@
-(function ( $ ) {
+var data = ( localStorage.getItem("todoData") ) ? JSON.parse( localStorage.getItem("todoData") ) : {};
+
+(function ( data, $ ) {
 
 	$.fn.todolist = function( settings ){
 
 		$.extend(true, $.fn.todolist.defaults, settings);
-
-		var data = JSON.parse( localStorage.getItem("todoData") );
+		// Retrive task from localstorage.
+		$.each(data, function(index, object) {
+			$.fn.todolist.add( object );
+		});
 		var defaults = $.fn.todolist.defaults;
+		var codes = $.fn.todolist.defaults.codes;
 
 		this.find( defaults.todoTask ).draggable();
+		this.find( defaults.formId + " :input" ).eq(1).datepicker();
+		// Adding drop function to each category of task
+		$.each(codes, function(index, value) {
+		  $(value).droppable({
+		    drop: function(event, ui) {
+		      var element = ui.helper,
+		          css_id = element.attr("id"),
+		          id = css_id.replace(defaults.taskId, ""),
+		          object = data[id];
 
-		$(this).find( defaults.formId + " :button" ).on('click', );
+		      // Removing old element
+		      $.fn.todolist.destroy( object );
+
+		      // Changing object code
+		      object.code = index;
+
+		      // Generating new element
+		      $.fn.todolist.add( object );
+
+		      // Updating Local Storage
+		      data[id] = object;
+		      localStorage.setItem("todoData", JSON.stringify(data));
+
+		      // Hiding Delete Area
+		      $( defaults.deleteDiv ).hide();
+		    }
+		  });
+		});
+		// Added drop functionality to delete div
+		$(this).find( defaults.deleteDiv ).droppable({
+			drop: function(event, ui) {
+		      var element = ui.helper,
+		          css_id = element.attr("id"),
+		          id = css_id.replace(defaults.taskId, ""),
+		          object = data[id];
+
+		      // Remove object from tasklist
+		      $.fn.todolist.destroy( object );
+
+		      // Updating Local Storage
+		      delete data[id];
+		      localStorage.setItem("todoData", JSON.stringify(data));
+
+		      // Hiding Delete Area
+		      $( defaults.deleteDiv ).hide();
+		    }
+		});
+
+		$(this).find( defaults.formId + " :button" ).on('click', addTask);
+		$(this).find( ".btn-danger" ).on('click', function(){
+			$.each(data, function(index, val) {
+			  	var object = data[val.id];
+				$.fn.todolist.destroy( object );
+		      	delete data[val.id];
+		      	localStorage.setItem("todoData", JSON.stringify(data));
+				$( defaults.deleteDiv ).hide();
+			});
+		});
 
 		return this;
 	};
@@ -24,7 +85,7 @@
 		taskId: "task-",
 		formId: "#todo-form",
 		dataAttribute: "data",
-		deleteDiv: "delete-div",
+		deleteDiv: "#delete-div",
 		codes:  {
 			"1": "#pending",
 			"2": "#inProgress",
@@ -35,9 +96,8 @@
 	 * TODO function to add todo item.
 	 */
 	$.fn.todolist.add = function( params ){
-		var code  = $.fn.todolist.defaults.codes;
 		var defaults = $.fn.todolist.defaults;
-		var parent = $( code[params.code] ), wrapper;
+		var parent = $( $.fn.todolist.defaults.codes[params.code] ), wrapper;
 
 		if( !parent ) return;
 
@@ -61,6 +121,15 @@
 			"class": defaults.todoDescription,
 			"text": params.description,
 		}).appendTo(wrapper);
+
+		wrapper.draggable({
+		    start: function() {
+		      $( defaults.deleteDiv ).show();
+		    },
+		    stop: function() {
+		      $( defaults.deleteDiv ).hide();
+		    }
+		});
 	};
 
 	/*
@@ -73,6 +142,7 @@
 	function addTask(event) {
 		event.preventDefault();
 		/* Act on the event */
+		var defaults = $.fn.todolist.defaults;
 		var inputs = $( defaults.formId + " :input"),
     	errorMessage = "Title can not be empty",
       	id, title, description, date, tempData;
@@ -115,4 +185,4 @@
 			window.console.log("Todo pluign message: " + obj);
 		};
 	}
-}(jQuery));
+}(data, jQuery));
