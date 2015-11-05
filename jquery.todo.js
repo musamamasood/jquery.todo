@@ -1,3 +1,11 @@
+/*
+ *  jQuery Todo - v1.0.0
+ *  A plugin to create todo list with HTML5 localstorage.
+ *  https://github.com/musamamasood/jquery.todo/
+ *
+ *  Made by Muhammad Usama Masood
+ *  Under MIT License
+ */
 var data = ( localStorage.getItem("todoData") ) ? JSON.parse( localStorage.getItem("todoData") ) : {};
 
 (function ( data, $ ) {
@@ -12,6 +20,7 @@ var data = ( localStorage.getItem("todoData") ) ? JSON.parse( localStorage.getIt
 		var defaults = $.fn.todolist.defaults;
 		var codes = $.fn.todolist.defaults.codes;
 
+		this.addClass('todo-list');
 		this.find( defaults.todoTask ).draggable();
 		this.find( defaults.formId + " :input" ).eq(1).datepicker();
 		// Adding drop function to each category of task
@@ -61,7 +70,7 @@ var data = ( localStorage.getItem("todoData") ) ? JSON.parse( localStorage.getIt
 		    }
 		});
 
-		$(this).find( defaults.formId + " :button" ).on('click', addTask);
+		$(this).find( ".btn-success" ).on('click', addTask );
 		$(this).find( ".btn-danger" ).on('click', function(){
 			$.each(data, function(index, val) {
 			  	var object = data[val.id];
@@ -147,8 +156,7 @@ var data = ( localStorage.getItem("todoData") ) ? JSON.parse( localStorage.getIt
     	errorMessage = "Title can not be empty",
       	id, title, description, date, tempData;
 
-		if (inputs.length !== 4)  return;
-
+		if (inputs.length !== 5)  return;
 		title = inputs[0].value;
 		date = inputs[1].value;
 		description = inputs[2].value;

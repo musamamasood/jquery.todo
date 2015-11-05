@@ -12,14 +12,12 @@
     "jquery",
     "todo",
     "todolist",
-    "bootstrape",
     "jqueryui"
   ],
   "license": "MIT",
   "homepage": "",
   "dependencies": {
     "jquery": "1.11.1",
-    "bootstrap": "3.3.4",
     "jquery-ui": "jqueryui#1.11.1"
   }
 }
